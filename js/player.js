@@ -2363,16 +2363,16 @@ const m = {
                         isPopping: false,
                         isAttached: false,
                         isOn: false,
-                        drain: 0.0017,
-                        radiusLimit: 10,
-                        damage: 0.8,
+                        drain: 0.00017,
+                        radiusLimit: 90,
+                        damage: 9,
                         setPositionToNose() {
                             const nose = { x: m.pos.x + 10 * Math.cos(m.angle), y: m.pos.y + 10 * Math.sin(m.angle) }
                             Matter.Body.setPosition(this, Vector.add(nose, Vector.mult(Vector.normalise(Vector.sub(nose, m.pos)), circleRadiusScale * this.circleRadius)));
                         },
                         fire() {
                             this.isAttached = false;
-                            const speed = 10 //scale with mass?
+                            const speed = 90 //scale with mass?
                             Matter.Body.setVelocity(this, {
                                 x: player.velocity.x * 0.4 + speed * Math.cos(m.angle),
                                 y: speed * Math.sin(m.angle)
@@ -2634,19 +2634,19 @@ const m = {
                                     player.force.y -= 0.5 * player.mass * simulation.g;
                                 }
                             } else {
-                                m.fieldCDcycle = m.cycle + 90;
+                                m.fieldCDcycle = 0;
                                 m.plasmaBall.fire()
                             }
                         } else if (m.holdingTarget && m.fieldCDcycle < m.cycle) { //holding, but field button is released
                             m.pickUp();
                             if (m.plasmaBall.isAttached) {
-                                m.fieldCDcycle = m.cycle + 30;
+                                m.fieldCDcycle = 0;
                                 m.plasmaBall.fire()
                             }
                         } else {
                             m.holdingTarget = null; //clears holding target (this is so you only pick up right after the field button is released and a hold target exists)
                             if (m.plasmaBall.isAttached) {
-                                m.fieldCDcycle = m.cycle + 30;
+                                m.fieldCDcycle = 0;
                                 m.plasmaBall.fire()
                             }
                         }
@@ -2692,7 +2692,7 @@ const m = {
                         ctx.strokeStyle = "#f07"
                         ctx.stroke();
                         ctx.lineWidth = tech.extruderRange;
-                        ctx.strokeStyle = "rgba(255,0,110,0.06)"
+                        ctx.strokeStyle = "rgba(255,0,0)"
                         ctx.stroke();
                     }
                 } else {
@@ -3306,7 +3306,7 @@ const m = {
                                     radius = Math.max(50, 250 - 2 * speed)
                                     radiusSmooth = 0.97
                                 }
-                                m.fieldRadius = m.fieldRadius * radiusSmooth + radius * (1 - radiusSmooth)
+                                m.fieldRadius = 9
 
                                 for (let i = 0, len = body.length; i < len; ++i) {
                                     if (Vector.magnitude(Vector.sub(body[i].position, m.fieldPosition)) < m.fieldRadius && !body[i].isNotHoldable) {
