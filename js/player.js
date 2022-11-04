@@ -3306,7 +3306,7 @@ const m = {
                                     radius = Math.max(50, 250 - 2 * speed)
                                     radiusSmooth = 0.97
                                 }
-                                m.fieldRadius = 9
+                                m.fieldRadius = 90000
 
                                 for (let i = 0, len = body.length; i < len; ++i) {
                                     if (Vector.magnitude(Vector.sub(body[i].position, m.fieldPosition)) < m.fieldRadius && !body[i].isNotHoldable) {
