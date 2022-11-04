@@ -2364,15 +2364,15 @@ const m = {
                         isAttached: false,
                         isOn: false,
                         drain: 0.00017,
-                        radiusLimit: 90,
-                        damage: 9,
+                        radiusLimit: 900,
+                        damage: 90,
                         setPositionToNose() {
                             const nose = { x: m.pos.x + 10 * Math.cos(m.angle), y: m.pos.y + 10 * Math.sin(m.angle) }
                             Matter.Body.setPosition(this, Vector.add(nose, Vector.mult(Vector.normalise(Vector.sub(nose, m.pos)), circleRadiusScale * this.circleRadius)));
                         },
                         fire() {
                             this.isAttached = false;
-                            const speed = 90 //scale with mass?
+                            const speed = 900 //scale with mass?
                             Matter.Body.setVelocity(this, {
                                 x: player.velocity.x * 0.4 + speed * Math.cos(m.angle),
                                 y: speed * Math.sin(m.angle)
@@ -2561,6 +2561,7 @@ const m = {
                         },
                     });
 
+                    Composite.add(engine.world, m.plasmaBall);
                     Composite.add(engine.world, m.plasmaBall);
                     // m.plasmaBall.startingVertices = m.plasmaBall.vertices.slice();
                     m.hold = function() {
@@ -3059,139 +3060,139 @@ const m = {
             }
         },
         // {
-        //   name: "phase decoherence field",
-        //   description: "use <strong class='color-f'>energy</strong> to become <strong>intangible</strong><br><strong>firing</strong> and touching <strong>shields</strong> <strong>drains</strong> <strong class='color-f'>energy</strong><br>unable to <strong>see</strong> and be <strong>seen</strong> by mobs",
-        //   effect: () => {
-        //     m.fieldFire = true;
-        //     m.fieldMeterColor = "#fff";
-        //     m.fieldPhase = 0;
+             name: "phase decoherence field",
+             description: "use <strong class='color-f'>energy</strong> to become <strong>intangible</strong><br><strong>firing</strong> and touching <strong>shields</strong> <strong>drains</strong> <strong class='color-f'>energy</strong><br>unable to <strong>see</strong> and be <strong>seen</strong> by mobs",
+             effect: () => {
+             m.fieldFire = true;
+             m.fieldMeterColor = "#fff";
+             m.fieldPhase = 0;
 
-        //     m.hold = function () {
-        //       function drawField(radius) {
-        //         radius *= Math.min(4, 0.9 + 2.2 * m.energy * m.energy);
-        //         const rotate = m.cycle * 0.005;
-        //         m.fieldPhase += 0.5 - 0.5 * Math.sqrt(Math.max(0.01, Math.min(m.energy, 1)));
-        //         const off1 = 1 + 0.06 * Math.sin(m.fieldPhase);
-        //         const off2 = 1 - 0.06 * Math.sin(m.fieldPhase);
-        //         ctx.beginPath();
-        //         ctx.ellipse(m.pos.x, m.pos.y, radius * off1, radius * off2, rotate, 0, 2 * Math.PI);
-        //         if (m.fireCDcycle > m.cycle && (input.field)) {
-        //           ctx.lineWidth = 5;
-        //           ctx.strokeStyle = `rgba(0, 204, 255,1)`
-        //           ctx.stroke()
-        //         }
-        //         ctx.fillStyle = "#fff" //`rgba(0,0,0,${0.5+0.5*m.energy})`;
-        //         ctx.globalCompositeOperation = "destination-in"; //in or atop
-        //         ctx.fill();
-        //         ctx.globalCompositeOperation = "source-over";
-        //         ctx.clip();
-        //       }
+             m.hold = function () {
+               function drawField(radius) {
+                radius *= Math.min(4, 0.9 + 2.2 * m.energy * m.energy);
+                const rotate = m.cycle * 0.005;
+                 m.fieldPhase += 0.5 - 0.5 * Math.sqrt(Math.max(0.01, Math.min(m.energy, 1)));
+                 const off1 = 1 + 0.06 * Math.sin(m.fieldPhase);
+                 const off2 = 1 - 0.06 * Math.sin(m.fieldPhase);
+                 ctx.beginPath();
+                 ctx.ellipse(m.pos.x, m.pos.y, radius * off1, radius * off2, rotate, 0, 2 * Math.PI);
+                 if (m.fireCDcycle > m.cycle && (input.field)) {
+                   ctx.lineWidth = 5;
+                   ctx.strokeStyle = `rgba(0, 204, 255,1)`
+                   ctx.stroke()
+                 }
+                 ctx.fillStyle = "#fff" //`rgba(0,0,0,${0.5+0.5*m.energy})`;
+                 ctx.globalCompositeOperation = "destination-in"; //in or atop
+                 ctx.fill();
+                 ctx.globalCompositeOperation = "source-over";
+                 ctx.clip();
+               }
 
-        //       m.isCloak = false //isCloak disables most uses of foundPlayer() 
-        //       player.collisionFilter.mask = cat.body | cat.map | cat.mob | cat.mobBullet | cat.mobShield //normal collisions
-        //       if (m.isHolding) {
-        //         if (this.fieldRange < 2000) {
-        //           this.fieldRange += 100
-        //           drawField(this.fieldRange)
-        //         }
-        //         m.drawHold(m.holdingTarget);
-        //         m.holding();
-        //         m.throwBlock();
-        //       } else if (input.field) {
-        //         m.grabPowerUp();
-        //         m.lookForPickUp();
+               m.isCloak = false //isCloak disables most uses of foundPlayer() 
+               player.collisionFilter.mask = cat.body | cat.map | cat.mob | cat.mobBullet | cat.mobShield //normal collisions
+               if (m.isHolding) {
+                 if (this.fieldRange < 2000) {
+                   this.fieldRange += 100
+                   drawField(this.fieldRange)
+                 }
+                 m.drawHold(m.holdingTarget);
+                 m.holding();
+                 m.throwBlock();
+               } else if (input.field) {
+                 m.grabPowerUp();
+                 m.lookForPickUp();
 
-        //         if (m.fieldCDcycle < m.cycle) {
-        //           // simulation.draw.bodyFill = "transparent"
-        //           // simulation.draw.bodyStroke = "transparent"
+                 if (m.fieldCDcycle < m.cycle) {
+                   // simulation.draw.bodyFill = "transparent"
+                   // simulation.draw.bodyStroke = "transparent"
 
-        //           const DRAIN = 0.00013 + (m.fireCDcycle > m.cycle ? 0.005 : 0)
-        //           if (m.energy > DRAIN) {
-        //             m.energy -= DRAIN;
-        //             // if (m.energy < 0.001) {
-        //             //   m.fieldCDcycle = m.cycle + 120;
-        //             //   m.energy = 0;
-        //             //   m.holdingTarget = null; //clears holding target (this is so you only pick up right after the field button is released and a hold target exists)
-        //             // }
-        //             this.fieldRange = this.fieldRange * 0.8 + 0.2 * 160
-        //             drawField(this.fieldRange)
+                   const DRAIN = 0.00013 + (m.fireCDcycle > m.cycle ? 0.005 : 0)
+                   if (m.energy > DRAIN) {
+                     m.energy -= DRAIN;
+                     // if (m.energy < 0.001) {
+                     //   m.fieldCDcycle = m.cycle + 120;
+                     //   m.energy = 0;
+                     //   m.holdingTarget = null; //clears holding target (this is so you only pick up right after the field button is released and a hold target exists)
+                     // }
+                     this.fieldRange = this.fieldRange * 0.8 + 0.2 * 160
+                     drawField(this.fieldRange)
 
-        //             m.isCloak = true //isCloak disables most uses of foundPlayer() 
-        //             player.collisionFilter.mask = cat.map
+                     m.isCloak = true //isCloak disables most uses of foundPlayer() 
+                     player.collisionFilter.mask = cat.map
 
 
-        //             let inPlayer = Matter.Query.region(mob, player.bounds)
-        //             if (inPlayer.length > 0) {
-        //               for (let i = 0; i < inPlayer.length; i++) {
-        //                 if (inPlayer[i].shield) {
-        //                   m.energy -= 0.005; //shields drain player energy
-        //                   //draw outline of shield
-        //                   ctx.fillStyle = `rgba(140,217,255,0.5)`
-        //                   ctx.fill()
-        //                 } else if (tech.superposition && inPlayer[i].isDropPowerUp) {
-        //                   // inPlayer[i].damage(0.4 * m.dmgScale); //damage mobs inside the player
-        //                   // m.energy += 0.005;
+                     let inPlayer = Matter.Query.region(mob, player.bounds)
+                     if (inPlayer.length > 0) {
+                       for (let i = 0; i < inPlayer.length; i++) {
+                         if (inPlayer[i].shield) {
+                           m.energy -= 0.005; //shields drain player energy
+                           //draw outline of shield
+                           ctx.fillStyle = `rgba(140,217,255,0.5)`
+                           ctx.fill()
+                         } else if (tech.superposition && inPlayer[i].isDropPowerUp) {
+                           // inPlayer[i].damage(0.4 * m.dmgScale); //damage mobs inside the player
+                           // m.energy += 0.005;
 
-        //                   mobs.statusStun(inPlayer[i], 300)
-        //                   //draw outline of mob in a few random locations to show blurriness
-        //                   const vertices = inPlayer[i].vertices;
-        //                   const off = 30
-        //                   for (let k = 0; k < 3; k++) {
-        //                     const xOff = off * (Math.random() - 0.5)
-        //                     const yOff = off * (Math.random() - 0.5)
-        //                     ctx.beginPath();
-        //                     ctx.moveTo(xOff + vertices[0].x, yOff + vertices[0].y);
-        //                     for (let j = 1, len = vertices.length; j < len; ++j) {
-        //                       ctx.lineTo(xOff + vertices[j].x, yOff + vertices[j].y);
-        //                     }
-        //                     ctx.lineTo(xOff + vertices[0].x, yOff + vertices[0].y);
-        //                     ctx.fillStyle = "rgba(0,0,0,0.1)"
-        //                     ctx.fill()
-        //                   }
-        //                   break;
-        //                 }
-        //               }
-        //             }
-        //           } else {
-        //             m.fieldCDcycle = m.cycle + 120;
-        //             m.energy = 0;
-        //             m.holdingTarget = null; //clears holding target (this is so you only pick up right after the field button is released and a hold target exists)
-        //             drawField(this.fieldRange)
-        //           }
-        //         }
-        //       } else if (m.holdingTarget && m.fieldCDcycle < m.cycle) { //holding, but field button is released
-        //         m.pickUp();
-        //         if (this.fieldRange < 2000) {
-        //           this.fieldRange += 100
-        //           drawField(this.fieldRange)
-        //         }
-        //       } else {
-        //         // this.fieldRange = 3000
-        //         if (this.fieldRange < 2000 && m.holdingTarget === null) {
-        //           this.fieldRange += 100
-        //           drawField(this.fieldRange)
-        //         }
-        //         m.holdingTarget = null; //clears holding target (this is so you only pick up right after the field button is released and a hold target exists)
-        //       }
+                           mobs.statusStun(inPlayer[i], 300)
+                           //draw outline of mob in a few random locations to show blurriness
+                           const vertices = inPlayer[i].vertices;
+                           const off = 30
+                           for (let k = 0; k < 3; k++) {
+                             const xOff = off * (Math.random() - 0.5)
+                             const yOff = off * (Math.random() - 0.5)
+                             ctx.beginPath();
+                             ctx.moveTo(xOff + vertices[0].x, yOff + vertices[0].y);
+                             for (let j = 1, len = vertices.length; j < len; ++j) {
+                               ctx.lineTo(xOff + vertices[j].x, yOff + vertices[j].y);
+                             }
+                             ctx.lineTo(xOff + vertices[0].x, yOff + vertices[0].y);
+                             ctx.fillStyle = "rgba(0,0,0,0.1)"
+                             ctx.fill()
+                           }
+                           break;
+                         }
+                       }
+                     }
+                   } else {
+                     m.fieldCDcycle = m.cycle + 120;
+                     m.energy = 0;
+                     m.holdingTarget = null; //clears holding target (this is so you only pick up right after the field button is released and a hold target exists)
+                     drawField(this.fieldRange)
+                   }
+                 }
+               } else if (m.holdingTarget && m.fieldCDcycle < m.cycle) { //holding, but field button is released
+                 m.pickUp();
+                 if (this.fieldRange < 2000) {
+                   this.fieldRange += 100
+                   drawField(this.fieldRange)
+                 }
+               } else {
+                 // this.fieldRange = 3000
+                 if (this.fieldRange < 2000 && m.holdingTarget === null) {
+                   this.fieldRange += 100
+                   drawField(this.fieldRange)
+                 }
+                 m.holdingTarget = null; //clears holding target (this is so you only pick up right after the field button is released and a hold target exists)
+               }
 
-        //       if (m.energy < m.maxEnergy) {
-        //         m.energy += m.fieldRegen;
-        //         const xOff = m.pos.x - m.radius * m.maxEnergy
-        //         const yOff = m.pos.y - 50
-        //         ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
-        //         ctx.fillRect(xOff, yOff, 60 * m.maxEnergy, 10);
-        //         ctx.fillStyle = m.fieldMeterColor;
-        //         ctx.fillRect(xOff, yOff, 60 * m.energy, 10);
-        //         ctx.beginPath()
-        //         ctx.rect(xOff, yOff, 60 * m.maxEnergy, 10);
-        //         ctx.strokeStyle = "rgb(0, 0, 0)";
-        //         ctx.lineWidth = 1;
-        //         ctx.stroke();
-        //       }
-        //       if (m.energy < 0) m.energy = 0
-        //     }
-        //   }
-        // },
+               if (m.energy < m.maxEnergy) {
+                 m.energy += m.fieldRegen;
+                 const xOff = m.pos.x - m.radius * m.maxEnergy
+                 const yOff = m.pos.y - 50
+                 ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
+                 ctx.fillRect(xOff, yOff, 60 * m.maxEnergy, 10);
+                 ctx.fillStyle = m.fieldMeterColor;
+                 ctx.fillRect(xOff, yOff, 60 * m.energy, 10);
+                 ctx.beginPath()
+                 ctx.rect(xOff, yOff, 60 * m.maxEnergy, 10);
+                 ctx.strokeStyle = "rgb(0, 0, 0)";
+                 ctx.lineWidth = 1;
+                 ctx.stroke();
+               }
+               if (m.energy < 0) m.energy = 0
+             }
+           }
+         },
         {
             name: "pilot wave",
             //<br><strong class='color-block'>blocks</strong> can't <strong>collide</strong> with <strong>intangible</strong> mobs
