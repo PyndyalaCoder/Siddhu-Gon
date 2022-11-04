@@ -3059,7 +3059,7 @@ const m = {
                 }
             }
         },
-        // {
+         {
              name: "phase decoherence field",
              description: "use <strong class='color-f'>energy</strong> to become <strong>intangible</strong><br><strong>firing</strong> and touching <strong>shields</strong> <strong>drains</strong> <strong class='color-f'>energy</strong><br>unable to <strong>see</strong> and be <strong>seen</strong> by mobs",
              effect: () => {
