@@ -1,3 +1,1 @@
-2-d physics rogue-lite platformer shooter sidescroller
-
-https://landgreen.github.io/sidescroller/
+Attribution to Landgreen N-gon. I edited a lot of guns, changed ammo, upgraded tech, and tinkered with the colors. The final boss is also much harder to beat.
