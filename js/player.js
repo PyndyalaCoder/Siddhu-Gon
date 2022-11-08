@@ -2288,7 +2288,7 @@ const m = {
              description: "use <strong class='color-f'>energy</strong> to emit short range <strong class='color-plasma'>plasma</strong><br><strong class='color-d'>damages</strong> and <strong>pushes</strong> mobs away",
              effect() {
                  m.fieldMeterColor = "#39FF00"
-                 m.eyeFillColor = m.fieldMeterColor
+                 m.eyeFillColor = "#39FF00"
                  m.hold = function() {
                      b.isExtruderOn = false
                      if (m.isHolding) {
