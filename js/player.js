@@ -2284,7 +2284,7 @@ const m = {
             }
         },
          {
-             name: "plasma torch",
+             name: "Green Saber",
              description: "use <strong class='color-f'>energy</strong> to emit short range <strong class='color-plasma'>plasma</strong><br><strong class='color-d'>damages</strong> and <strong>pushes</strong> mobs away",
              effect() {
                  m.fieldMeterColor = "#39FF00"
@@ -2317,16 +2317,7 @@ const m = {
                              b.wasExtruderOn = false
                              b.canExtruderFire = true
                          }
-                         ctx.beginPath(); //draw all the wave bullets
-                         for (let i = 0, len = bullet.length; i < len; i++) {
-                             if (bullet[i].isWave) {
-                                 if (bullet[i].isBranch) {
-                                     ctx.moveTo(bullet[i].position.x, bullet[i].position.y)
-                                 } else {
-                                     ctx.lineTo(bullet[i].position.x, bullet[i].position.y)
-                                 }
-                             }
-                         }
+                         
                          if (b.wasExtruderOn && b.isExtruderOn) ctx.lineTo(m.pos.x + 15 * Math.cos(m.angle), m.pos.y + 15 * Math.sin(m.angle))
                          ctx.lineWidth = 4;
                          ctx.strokeStyle = "#277012"
