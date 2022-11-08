@@ -1,4 +1,3 @@
-const SIDDHUKNOCK = prompt("What would you like knockback to be: (Positive number for knockback to be push, Negative for pull. Try a very small decimal, but no smaller than 0.004 when positive, but no bigger than -0.09 for negative): ")
 let bullet = [];
 
 const b = {
@@ -5546,13 +5545,13 @@ const b = {
                     m.fireCDcycle = 0
 					}
                     if (tech.isShotgunImmune && m.immuneCycle < m.cycle + Math.floor(60 * b.fireCDscale)) m.immuneCycle = m.cycle + Math.floor(60 * b.fireCDscale); //player is immune to damage for 30 cycles
-                    knock = SIDDHUKNOCK
+                    knock = -0.004
                 } else {
                     m.fireCDcycle = 0
                     if (tech.isShotgunImmune && m.immuneCycle < m.cycle + Math.floor(47 * b.fireCDscale)) m.immuneCycle = m.cycle + Math.floor(47 * b.fireCDscale); //player is immune to damage for 30 cycles
                     spread = 1.3
 					m.energy -= 0.005
-                    knock = SIDDHUKNOCK
+                    knock = -0.004
                 }
 
                 if (tech.isShotgunReversed) {
