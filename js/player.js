@@ -2283,61 +2283,61 @@ const m = {
                 }
             }
         },
-        // {
-        //     name: "plasma torch",
-        //     description: "use <strong class='color-f'>energy</strong> to emit short range <strong class='color-plasma'>plasma</strong><br><strong class='color-d'>damages</strong> and <strong>pushes</strong> mobs away",
-        //     effect() {
-        //         m.fieldMeterColor = "#f0f"
-        //         m.eyeFillColor = m.fieldMeterColor
-        //         m.hold = function() {
-        //             b.isExtruderOn = false
-        //             if (m.isHolding) {
-        //                 m.drawHold(m.holdingTarget);
-        //                 m.holding();
-        //                 m.throwBlock();
-        //             } else if (input.field && m.fieldCDcycle < m.cycle) { //not hold but field button is pressed
-        //                 m.grabPowerUp();
-        //                 m.lookForPickUp();
-        //                 if (tech.isExtruder) {
-        //                     b.extruder();
-        //                 } else {
-        //                     b.plasma();
-        //                 }
-        //             } else if (m.holdingTarget && m.fieldCDcycle < m.cycle) { //holding, but field button is released
-        //                 m.pickUp();
-        //             } else {
-        //                 m.holdingTarget = null; //clears holding target (this is so you only pick up right after the field button is released and a hold target exists)
-        //             }
-        //             m.drawRegenEnergy("rgba(0, 0, 0, 0.2)")
+         {
+             name: "plasma torch",
+             description: "use <strong class='color-f'>energy</strong> to emit short range <strong class='color-plasma'>plasma</strong><br><strong class='color-d'>damages</strong> and <strong>pushes</strong> mobs away",
+             effect() {
+                 m.fieldMeterColor = "#39FF00"
+                 m.eyeFillColor = m.fieldMeterColor
+                 m.hold = function() {
+                     b.isExtruderOn = false
+                     if (m.isHolding) {
+                         m.drawHold(m.holdingTarget);
+                         m.holding();
+                         m.throwBlock();
+                     } else if (input.field && m.fieldCDcycle < m.cycle) { //not hold but field button is pressed
+                         m.grabPowerUp();
+                         m.lookForPickUp();
+                         if (tech.isExtruder) {
+                             b.extruder();
+                         } else {
+                             b.plasma();
+                         }
+                     } else if (m.holdingTarget && m.fieldCDcycle < m.cycle) { //holding, but field button is released
+                         m.pickUp();
+                     } else {
+                         m.holdingTarget = null; //clears holding target (this is so you only pick up right after the field button is released and a hold target exists)
+                     }
+                     m.drawRegenEnergy("rgba(128,0,128)")
 
-        //             if (tech.isExtruder) {
-        //                 if (input.field) {
-        //                     b.wasExtruderOn = true
-        //                 } else {
-        //                     b.wasExtruderOn = false
-        //                     b.canExtruderFire = true
-        //                 }
-        //                 ctx.beginPath(); //draw all the wave bullets
-        //                 for (let i = 0, len = bullet.length; i < len; i++) {
-        //                     if (bullet[i].isWave) {
-        //                         if (bullet[i].isBranch) {
-        //                             ctx.moveTo(bullet[i].position.x, bullet[i].position.y)
-        //                         } else {
-        //                             ctx.lineTo(bullet[i].position.x, bullet[i].position.y)
-        //                         }
-        //                     }
-        //                 }
-        //                 if (b.wasExtruderOn && b.isExtruderOn) ctx.lineTo(m.pos.x + 15 * Math.cos(m.angle), m.pos.y + 15 * Math.sin(m.angle))
-        //                 ctx.lineWidth = 4;
-        //                 ctx.strokeStyle = "#f07"
-        //                 ctx.stroke();
-        //                 ctx.lineWidth = tech.extruderRange;
-        //                 ctx.strokeStyle = "rgba(255,0,110,0.05)"
-        //                 ctx.stroke();
-        //             }
-        //         }
-        //     }
-        // },
+                     if (tech.isExtruder) {
+                         if (input.field) {
+                             b.wasExtruderOn = true
+                         } else {
+                             b.wasExtruderOn = false
+                             b.canExtruderFire = true
+                         }
+                         ctx.beginPath(); //draw all the wave bullets
+                         for (let i = 0, len = bullet.length; i < len; i++) {
+                             if (bullet[i].isWave) {
+                                 if (bullet[i].isBranch) {
+                                     ctx.moveTo(bullet[i].position.x, bullet[i].position.y)
+                                 } else {
+                                     ctx.lineTo(bullet[i].position.x, bullet[i].position.y)
+                                 }
+                             }
+                         }
+                         if (b.wasExtruderOn && b.isExtruderOn) ctx.lineTo(m.pos.x + 15 * Math.cos(m.angle), m.pos.y + 15 * Math.sin(m.angle))
+                         ctx.lineWidth = 4;
+                         ctx.strokeStyle = "#277012"
+                         ctx.stroke();
+                         ctx.lineWidth = tech.extruderRange;
+                         ctx.strokeStyle = "rgba(128,0,128)"
+                         ctx.stroke();
+                     }
+                 }
+             }
+         },
         {
             name: "plasma torch",
             description: "use <strong class='color-f'>energy</strong> to emit short range <strong class='color-plasma'>plasma</strong><br><strong class='color-d'>damages</strong> and <strong>pushes</strong> mobs away<br>generate <strong>6</strong> <strong class='color-f'>energy</strong> per second",
